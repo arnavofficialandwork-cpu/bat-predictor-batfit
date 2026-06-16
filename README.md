@@ -1,4 +1,7 @@
 # 🏏 BatFit — Cricket Bat Predictor
+# Frontend- https://batfit-frontend.vercel.app/
+# Backend- https://batfit-backend.vercel.app/
+
 
 BatFit is a full stack web application that recommends the most suitable cricket bat for a player based on their batting profile, physical attributes, playing style, and budget.
 
