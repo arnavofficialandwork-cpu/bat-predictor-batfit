@@ -1,9 +1,9 @@
 const bats = [
     // --- ORIGINAL 25 BATS (Updated with missing form properties) ---
     {
-        batName: "Salix Pod",
+        batName: "Salix Knife",
         brand: "Salix",
-        budget: 450,
+        budget: 500,
         handleShape: "Oval",
         weightPreference: "Light",
         battingStyle: "Front Foot",
@@ -11,8 +11,8 @@ const bats = [
         battingApproach: "Vertical Bat",
         strength: "Timing",
         battingWeakness: "Short Ball",
-        weight: 1180,
-        description: "Large middle, ideal for elegant stroke makers."
+        weight: 1170,
+        description: "Premium English willow bat with exceptional pickup and a full profile, designed for professional players who rely on timing and precision."
     },
     {
         batName: "Salix AJK",
@@ -85,18 +85,18 @@ const bats = [
         description: "Premium bat with huge sweet spot and iconic branding."
     },
     {
-        batName: "Gray Nicolls Nova",
-        brand: "Gray Nicolls",
-        budget: 300,
+        batName: "Gray-Nicolls Havoc",
+        brand: "Gray-Nicolls",
+        budget: 320,
         handleShape: "Oval",
-        weightPreference: "Light",
-        battingStyle: "Balanced",
+        weightPreference: "Medium",
+        battingStyle: "Front Foot",
         playingLevel: "Club",
-        battingApproach: "Balanced",
-        strength: "Shot Placement",
-        battingWeakness: "Short Ball",
-        weight: 1165,
-        description: "Light pickup and great balance for touch players."
+        battingApproach: "Vertical Bat",
+        strength: "Power Hitting",
+        battingWeakness: "Spin",
+        weight: 1175,
+        description: "Designed for aggressive stroke makers, offering a large sweet spot and strong front-foot performance."
     },
     {
         batName: "Gray Nicolls Powerbow",

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import axios from "axios";
 import "./index.css";
 
 const App = () => {
   const baseurl = 'http://localhost:3001/players';
   const [result, setResult] = useState(null);
+  const [playerData, setplayerData] = useState(null);
   const [data, setData] = useState({
     name: " ",
     height: "",
@@ -28,6 +29,8 @@ const App = () => {
   const savechange = (event) => {
     event.preventDefault();
     const newcricketer = data;
+    setplayerData(data);
+
     axios.post(baseurl, newcricketer)
       .then(result => {
         console.log(result.data);
@@ -37,6 +40,7 @@ const App = () => {
         console.log(error)
       })
   }
+
 
   return (
     <div className="container">
@@ -185,23 +189,169 @@ const App = () => {
           <button type="submit" className="submit-btn"> submit </button>
         </form>
       </div >
+
+      {playerData && (
+        <div className="profile-card">
+          <h2>Your Batting Profile</h2>
+
+          <p><strong>Budget:</strong> £{playerData.budget}</p>
+
+          <p><strong>Playing Level:</strong> {playerData.playingLevel}</p>
+
+          <p><strong>Batting Style:</strong> {playerData.battingStyle}</p>
+
+          <p><strong>Batting Approach:</strong> {playerData.battingApproach}</p>
+
+          <p><strong>Weight Preference:</strong> {playerData.weightPreference}</p>
+
+          <p><strong>Weakness:</strong> {playerData.battingweakness}</p>
+        </div>
+      )}
       <div className="result">
-        <h1>{!result ? "Tell Your Specifications for your recommeded bat" : "the best bat according to your specifications"}</h1>
+        <h1>{!result ? "Tell Your Specifications for your recommeded bat" : "The best bat according to your specifications :"}</h1>
         {result && (
-          <div>
-            <h2>{result.batName}</h2>
+          <div className="results-container">
+            {result && (
+              <div className="results-container">
+                {result.map((bat, index) => (
+                  <div key={index} className="bat-card">
 
-            <p><strong>Brand:</strong> {result.brand}</p>
+                    <h2>
+                      {index === 0
+                        ? " Best Match"
+                        : `#${index + 1} Recommendation`}
+                    </h2>
 
-            <p><strong>Price:</strong> £{result.budget}</p>
+                    <h3>{bat.batName}</h3>
 
-            <p><strong>Weight:</strong> {result.weight}g</p>
+                    <h3>{bat.percentage} %</h3>
 
-            <p>{result.description}</p>
+                    <p><strong>Brand:</strong> {bat.brand}</p>
+
+                    <p><strong>Price:</strong> £{bat.budget}</p>
+
+                    <p><strong>Weight:</strong> {bat.weight}g</p>
+
+                    <p>{bat.description}</p>
+
+                    <h4>Why this bat?</h4>
+
+                    {bat.reasons?.map((reason, i) => (
+                      <p key={i} className="reason">
+                        {reason}
+                      </p>
+                    ))}
+
+                  </div>
+                ))}
+              </div>
+            )}
+
           </div>
         )}
       </div>
+      <button
+        className="download-btn"
+        onClick={() => window.print()}
+      >
+        Download BatFit Report
+      </button>
+      {result && playerData && (
+        <div className="report">
 
+          <h1>BATFIT PLAYER ASSESSMENT</h1>
+
+          <hr />
+
+          <h2>PLAYER PROFILE</h2>
+
+          <p><strong>Name:</strong> {playerData.name}</p>
+
+          <p><strong>Playing Level:</strong> {playerData.playingLevel}</p>
+
+          <p><strong>Batting Style:</strong> {playerData.battingStyle}</p>
+
+          <p><strong>Batting Approach:</strong> {playerData.battingApproach}</p>
+
+          <p><strong>Weight Preference:</strong> {playerData.weightPreference}</p>
+
+          <p><strong>Primary Strength:</strong> {playerData.strength}</p>
+
+          <p><strong>Development Area:</strong> {playerData.battingweakness}</p>
+
+          <hr />
+
+          <h2>RECOMMENDATION SUMMARY</h2>
+
+          <p>
+            Based on the submitted player profile, BatFit identified
+            <strong> {result[0].batName}</strong> as the strongest overall match.
+          </p>
+
+          <p>
+            Overall Compatibility Score:
+            <strong> {result[0].percentage}%</strong>
+          </p>
+
+          <hr />
+
+          <h2>RECOMMENDED EQUIPMENT</h2>
+
+          {result.map((bat, index) => (
+            <div key={index} className="report-bat">
+
+              <h3>OPTION {index + 1}</h3>
+
+              <p><strong>Model:</strong> {bat.batName}</p>
+
+              <p><strong>Brand:</strong> {bat.brand}</p>
+
+              <p><strong>Compatibility Score:</strong> {bat.percentage}%</p>
+
+              <p><strong>Weight:</strong> {bat.weight}g</p>
+
+              <p><strong>Budget:</strong> £{bat.budget}</p>
+
+              <p><strong>Description:</strong> {bat.description}</p>
+
+              <h4>Key Reasons</h4>
+
+              {bat.reasons?.map((reason, i) => (
+                <p key={i}>• {reason}</p>
+              ))}
+
+              <br />
+
+            </div>
+          ))}
+
+          <hr />
+
+          <h2>BATFIT ANALYSIS</h2>
+
+          <p>
+            The player profile indicates a preference for
+            {" "}{playerData.battingStyle.toLowerCase()} batting
+            with a {playerData.weightPreference.toLowerCase()} pickup profile.
+          </p>
+
+          <p>
+            Equipment recommendations prioritise performance,
+            player comfort, control and budget alignment.
+          </p>
+
+          <hr />
+
+          <h2>DISCLAIMER</h2>
+
+          <p>
+            BatFit recommendations are generated using a profile-based
+            matching engine and should be used as guidance alongside
+            physical bat testing wherever possible.
+          </p>
+
+        </div>
+      )}
     </div >
   )
 }
