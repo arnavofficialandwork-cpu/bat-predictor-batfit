@@ -3,7 +3,7 @@ import axios from "axios";
 import "./index.css";
 
 const App = () => {
-  const baseurl = 'http://localhost:3001/players';
+  const baseurl = 'https://batfit-backend.vercel.app/players';
   const [result, setResult] = useState(null);
   const [playerData, setplayerData] = useState(null);
   const [data, setData] = useState({
